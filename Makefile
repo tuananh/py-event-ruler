@@ -1,5 +1,6 @@
 .PHONY: clean
 clean:
+	rm -rf src/event_ruler
 	rm -rf dist
 
 .PHONY: setup-tools
@@ -8,8 +9,9 @@ setup-tools:
 
 .PHONY: build
 build: clean
-	gopy build -output=dist -vm=python3 -rename=true -no-make=true ./
-	cp pyproject.toml dist
-	cp README.md dist
-	cd dist
+	mkdir -p src/event_ruler
+	gopy build -output=src/event_ruler -vm=python3 -rename=true -no-make=true ./
+	cp pyproject.toml src/event_ruler
+	cp README.md src/event_ruler
+	cd src/event_ruler
 	python -m build

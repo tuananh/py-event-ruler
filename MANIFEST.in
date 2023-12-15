@@ -1,0 +1,6 @@
+exclude .github/*
+exclude hack/*
+exclude main.go
+exclude go.mod
+exclude go.sum
+exclude Makefile
