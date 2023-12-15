@@ -8,7 +8,7 @@ setup-tools:
 
 .PHONY: build
 build: clean
-	gopy build -output=dist -vm=python3 -rename=true ./
+	gopy build -output=dist -vm=python3 -rename=true -no-make=true ./
 	cp pyproject.toml dist
 	cp README.md dist
 	cd dist
