@@ -20,7 +20,7 @@ jobs:
       with:
         go-version: '1.20'
     - name: Setup tools
-      runs: |
+      run: |
         make setup-tools
     - name: Build package
       run: |
