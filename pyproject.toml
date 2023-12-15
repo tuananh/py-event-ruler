@@ -6,7 +6,7 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "event-ruler"
+name = "event_ruler"
 description = "Testing EventBridge pattern locally"
 readme = "README.md"
 authors = [
