@@ -1,6 +1,6 @@
 .PHONY: clean
 clean:
-	rm -rf out
+	rm -rf dist
 
 .PHONY: setup-tools
 setup-tools:
@@ -8,4 +8,4 @@ setup-tools:
 
 .PHONY: build
 build: clean
-	gopy build -output=dist -vm=python3 ./
+	gopy build -output=dist -vm=python3 -rename=true ./

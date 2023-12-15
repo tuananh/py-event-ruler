@@ -9,11 +9,11 @@ pattern = json.dumps({
     "foo": [True]
 })
 
-print(event_ruler.Test_Event_Pattern(payload, pattern))
+print(event_ruler.test_event_pattern(payload, pattern))
 
 
 try:
     # should throw error here
-    event_ruler.Test_Event_Pattern(payload, 'invalid-pattern')
+    event_ruler.test_event_pattern(payload, 'invalid-pattern')
 except Exception as e:
     print(e)

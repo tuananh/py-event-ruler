@@ -17,7 +17,7 @@ Hence, I wrote a quick dirty Python module for this.
 
 ```python
 >>> from out import event_ruler
->>> event_ruler.Test_Event_Pattern('{"foo":true}', '{"foo":[true]}')
+>>> event_ruler.test_event_pattern('{"foo":true}', '{"foo":[true]}')
 True
 ```
 
