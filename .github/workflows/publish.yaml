@@ -31,9 +31,11 @@ jobs:
     - name: Build package
       run: |
         make build
+        mkdir tmp
+        cp dist/*.wheel tmp
     
     - name: Publish package distributions to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
-        packages-dir: dist/
+        packages-dir: tmp/
         password: ${{ secrets.PYPI_API_TOKEN }}
