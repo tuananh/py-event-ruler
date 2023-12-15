@@ -6,6 +6,8 @@ main() {
 }
 
 setup_tools() {
+    python3 -m pip install pybindgen
+    
     go install golang.org/x/tools/cmd/goimports@latest
     go install github.com/go-python/gopy@latest
 
