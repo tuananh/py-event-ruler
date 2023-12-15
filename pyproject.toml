@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "event_ruler"
-version = "0.1.0"
+version = "0.1.1"
 description = "Testing EventBridge pattern locally"
 readme = "README.md"
 authors = [
