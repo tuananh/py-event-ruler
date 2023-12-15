@@ -1,0 +1,38 @@
+[build-system]
+requires = [
+    "setuptools >= 64",
+    "setuptools_scm >= 6.4"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "event-ruler"
+description = "Testing EventBridge pattern locally"
+readme = "README.md"
+authors = [
+    {name = "Tuan Anh Tran", email = "me@tuananh.org"}
+]
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Framework :: AnyIO",
+    "Typing :: Typed",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+requires-python = ">= 3.8"
+dependencies = [
+
+]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/tuananh/py-event-ruler"
+Issues = "https://github.com/tuananh/py-event-ruler/issues"
