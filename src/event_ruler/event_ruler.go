@@ -51,8 +51,11 @@ static inline void gopy_err_handle() {
 import "C"
 import (
 	"errors"
+	"unsafe"
 
 	"github.com/go-python/gopy/gopyh" // handler
+
+	event_ruler "github.com/tuananh/py-event-ruler"
 )
 
 // main doesn't do anything in lib / pkg mode, but is essential for exe mode
@@ -1114,3 +1117,18 @@ func Slice_uint8_append(handle CGoHandle, _vl C.uchar) {
 // ---- Constructors ---
 
 // ---- Functions ---
+
+//export event_ruler_Test_Event_Pattern
+func event_ruler_Test_Event_Pattern(payload *C.char, pattern *C.char) C.char {
+	_saved_thread := C.PyEval_SaveThread()
+	cret, __err := event_ruler.Test_Event_Pattern(C.GoString(payload), C.GoString(pattern))
+
+	C.PyEval_RestoreThread(_saved_thread)
+	if __err != nil {
+		estr := C.CString(__err.Error())
+		C.PyErr_SetString(C.PyExc_RuntimeError, estr)
+		C.free(unsafe.Pointer(estr))
+		return boolGoToPy(false)
+	}
+	return boolGoToPy(cret)
+}

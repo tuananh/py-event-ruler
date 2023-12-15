@@ -2000,6 +2000,28 @@ _wrap__event_ruler_Slice_uint8_append(PyObject * PYBINDGEN_UNUSED(dummy), PyObje
 }
 PyObject * _wrap__event_ruler_Slice_uint8_append(PyObject * PYBINDGEN_UNUSED(dummy), PyObject *args, PyObject *kwargs);
 
+
+PyObject *
+_wrap__event_ruler_event_ruler_Test_Event_Pattern(PyObject * PYBINDGEN_UNUSED(dummy), PyObject *args, PyObject *kwargs)
+{
+    PyObject *py_retval;
+    bool retval;
+    char *payload;
+    char *pattern;
+    const char *keywords[] = {"payload", "pattern", NULL};
+
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs, (char *) "ss", (char **) keywords, &payload, &pattern)) {
+        return NULL;
+    }
+    retval = event_ruler_Test_Event_Pattern(payload, pattern);
+    if (PyErr_Occurred()) {
+        return NULL;
+    }
+    py_retval = Py_BuildValue((char *) "N", PyBool_FromLong(retval));
+    return py_retval;
+}
+PyObject * _wrap__event_ruler_event_ruler_Test_Event_Pattern(PyObject * PYBINDGEN_UNUSED(dummy), PyObject *args, PyObject *kwargs);
+
 static PyMethodDef _event_ruler_functions[] = {
     {(char *) "GoPyInit", (PyCFunction) _wrap__event_ruler_GoPyInit, METH_NOARGS, "GoPyInit()\n\n" },
     {(char *) "DecRef", (PyCFunction) _wrap__event_ruler_DecRef, METH_KEYWORDS|METH_VARARGS, "DecRef(handle)\n\ntype: handle: int64_t" },
@@ -2107,6 +2129,7 @@ static PyMethodDef _event_ruler_functions[] = {
     {(char *) "Slice_uint8_subslice", (PyCFunction) _wrap__event_ruler_Slice_uint8_subslice, METH_KEYWORDS|METH_VARARGS, "Slice_uint8_subslice(handle, st, ed)\n\ntype: handle: int64_t\ntype: st: int\ntype: ed: int" },
     {(char *) "Slice_uint8_set", (PyCFunction) _wrap__event_ruler_Slice_uint8_set, METH_KEYWORDS|METH_VARARGS, "Slice_uint8_set(handle, idx, value)\n\ntype: handle: int64_t\ntype: idx: int\ntype: value: uint8_t" },
     {(char *) "Slice_uint8_append", (PyCFunction) _wrap__event_ruler_Slice_uint8_append, METH_KEYWORDS|METH_VARARGS, "Slice_uint8_append(handle, value)\n\ntype: handle: int64_t\ntype: value: uint8_t" },
+    {(char *) "event_ruler_Test_Event_Pattern", (PyCFunction) _wrap__event_ruler_event_ruler_Test_Event_Pattern, METH_KEYWORDS|METH_VARARGS, "event_ruler_Test_Event_Pattern(payload, pattern)\n\ntype: payload: char *\ntype: pattern: char *" },
     {NULL, NULL, 0, NULL}
 };
 #if PY_VERSION_HEX >= 0x03000000

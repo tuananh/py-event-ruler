@@ -147,6 +147,7 @@ mod.add_function('Slice_uint8_elem', retval('uint8_t'), [param('int64_t', 'handl
 mod.add_function('Slice_uint8_subslice', retval('int64_t'), [param('int64_t', 'handle'), param('int', 'st'), param('int', 'ed')])
 mod.add_function('Slice_uint8_set', None, [param('int64_t', 'handle'), param('int', 'idx'), param('uint8_t', 'value')])
 mod.add_function('Slice_uint8_append', None, [param('int64_t', 'handle'), param('uint8_t', 'value')])
+add_checked_function(mod, 'event_ruler_Test_Event_Pattern', retval('bool'), [param('char*', 'payload'), param('char*', 'pattern')])
 
 mod.generate(open('event_ruler.c', 'w'))
 

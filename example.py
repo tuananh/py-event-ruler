@@ -1,5 +1,5 @@
 import json
-from dist import event_ruler
+from src.event_ruler import event_ruler
 
 payload = json.dumps({
     "foo": True

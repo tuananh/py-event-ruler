@@ -55,5 +55,8 @@ os.chdir(cwd)
 
 
 # ---- Functions ---
+def test_event_pattern(payload, pattern):
+	"""Test_Event_Pattern(str payload, str pattern) bool, str"""
+	return _event_ruler.event_ruler_Test_Event_Pattern(payload, pattern)
 
 
