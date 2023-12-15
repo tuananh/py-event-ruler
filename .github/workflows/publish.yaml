@@ -10,6 +10,11 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/event-ruler
+    permissions:
+      id-token: write 
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
