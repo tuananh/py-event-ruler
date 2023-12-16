@@ -6,21 +6,28 @@ import (
 	"quamina.net/go/quamina"
 )
 
+var (
+	errInitFailure     = errors.New("failed to init pattern matcher")
+	errInvalidPattern  = errors.New("invalid pattern")
+	errMatchingFailure = errors.New("failed to match for payload")
+	errUnexpected      = errors.New("unexpected error")
+)
+
 func Test_Event_Pattern(payload, pattern string) (bool, error) {
 	q, err := quamina.New()
 	if err != nil {
-		return false, errors.New("event_ruler: failed to init pattern matcher")
+		return false, errInitFailure
 	}
 
 	const patternName = "default"
 	err = q.AddPattern(patternName, pattern)
 	if err != nil {
-		return false, errors.New("event_ruler: fail to add patern")
+		return false, errInvalidPattern
 	}
 
 	matches, err := q.MatchesForEvent([]byte(payload))
 	if err != nil {
-		return false, errors.New("event_ruler: failed to match for payload")
+		return false, errMatchingFailure
 	}
 
 	for _, m := range matches {
@@ -29,5 +36,5 @@ func Test_Event_Pattern(payload, pattern string) (bool, error) {
 		}
 	}
 
-	return false, errors.New("event_ruler: unexpected error")
+	return false, errUnexpected
 }
