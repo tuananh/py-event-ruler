@@ -4,13 +4,13 @@ on: [ push, pull_request ]
 
 jobs:
   build_macos:
-#    if: false
-    name: MacOS ${{ matrix.os_version }} 3${{ matrix.python3_version }} ${{ matrix.arch_cibw_go[0] }}
+    if: false # disable
+    name: MacOS ${{ matrix.os_version }} 3.${{ matrix.python3_version }} ${{ matrix.arch_cibw_go[0] }}
     strategy:
       fail-fast: false
       matrix:
         os_version: [ 11, 12 ]
-        python3_version: [ 8, 9, 10, 11 ]
+        python3_version: [ 10, 11 ]
         arch_cibw_go:
           - [ "x86_64", "amd64" ]
           - [ "arm64", "arm64" ]
@@ -59,9 +59,12 @@ jobs:
           path: ./wheelhouse/*.whl
 
   build_linux_x86_64:
-#    if: false
-    name: Linux 38,39,310,311 x86_64
+    # if: false
+    name: Linux 310,311 x86_64
     runs-on: ubuntu-20.04
+    environment:
+      name: pypi
+      url: https://pypi.org/p/event_ruler
 
     steps:
       - uses: actions/checkout@v3
@@ -73,7 +76,7 @@ jobs:
         uses: pypa/cibuildwheel@v2.14.1
         env:
           CIBW_BUILD: "cp3*_x86_64"
-          CIBW_SKIP: "cp36-* cp37-* *-musllinux_x86_64"
+          CIBW_SKIP: "cp36-* cp37-* cp38-* cp39-* *-musllinux_x86_64"
           CIBW_ARCHS: "native"
           CIBW_ENVIRONMENT: >
             PATH=$PATH:/usr/local/go/bin
@@ -83,15 +86,21 @@ jobs:
             go install github.com/go-python/gopy@v0.4.7
             go install golang.org/x/tools/cmd/goimports@latest
 
-      - name: Upload Artifacts
+      - name: Upload atifacts
         uses: actions/upload-artifact@v3
         with:
           name: wheels
           path: ./wheelhouse/*.whl
 
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: ./wheelhouse/*.whl
+          password: ${{ secrets.PYPI_API_TOKEN }}
+
   build_linux_arm:
-#    if: false
-    name: Linux 38,39,310,311 armv7l
+    # if: false
+    name: Linux 310,311 armv7l
     runs-on: ubuntu-latest
 
     steps:
@@ -124,7 +133,7 @@ jobs:
           docker run -v /tmp/output:/host armv7l:latest bash -c "cp /export/* /host/"
           tar -zcvf /tmp/output.tar.gz /tmp/output
 
-      - name: Upload Artifacts
+      - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: wheels
@@ -132,7 +141,7 @@ jobs:
 
   build_windows:
     if: false  # not working
-    name: Windows 38,39,310,311 x86_64
+    name: Windows 310,311 x86_64
     runs-on: windows-2019
 
     steps:
@@ -155,14 +164,14 @@ jobs:
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.14.1
         env:
-#          CGO_ENABLED: 1
+          # CGO_ENABLED: 1
           CIBW_BUILD: "cp3*"
-          CIBW_SKIP: "cp36-* cp37-*"
+          CIBW_SKIP: "cp36-* cp37-* cp38-* cp39-*"
           CIBW_ARCHS: "native"
           CIBW_ENVIRONMENT: >
             GOARCH=amd64
 
-      - name: Upload Artifacts
+      - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: wheels
