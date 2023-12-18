@@ -1,10 +1,16 @@
 name: Build
 
-on: [ push, pull_request ]
+on:
+  # release:
+  #   types: [created]
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
 
 jobs:
   build_macos:
-    if: false # disable
+    # if: false
     name: MacOS ${{ matrix.os_version }} 3${{ matrix.python3_version }} ${{ matrix.arch_cibw_go[0] }}
     strategy:
       fail-fast: false
@@ -15,6 +21,9 @@ jobs:
           - [ "x86_64", "amd64" ]
           - [ "arm64", "arm64" ]
     runs-on: macos-${{ matrix.os_version }}
+    environment:
+      name: pypi
+      url: https://pypi.org/p/event_ruler
     steps:
       - uses: actions/checkout@v3
 
@@ -52,11 +61,17 @@ jobs:
             PATH=$PATH:/usr/local/go/bin
             GOARCH=${{ matrix.arch_cibw_go[1] }}
 
-      - name: Upload Artifacts
+      - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: wheels
           path: ./wheelhouse/*.whl
+
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: ./wheelhouse
+          password: ${{ secrets.PYPI_API_TOKEN }}
 
   build_linux_x86_64:
     # if: false
@@ -102,6 +117,9 @@ jobs:
     # if: false
     name: Linux 310,311 armv7l
     runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/event_ruler
 
     steps:
       - name: Checkout repository
@@ -138,6 +156,12 @@ jobs:
         with:
           name: wheels
           path: /tmp/output/*.whl
+
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: ./wheelhouse
+          password: ${{ secrets.PYPI_API_TOKEN }}
 
   build_windows:
     if: false  # not working
