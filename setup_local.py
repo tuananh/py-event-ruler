@@ -70,7 +70,7 @@ setuptools.setup(
     author="Tuan Anh Tran",
     author_email="me@tuananh.org",
     description="Test EventBridge pattern with Python locally",
-    url="https://github.com/go-python/gopy",
+    url="https://github.com/tuananh/py-event-ruler",
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: BSD License",
