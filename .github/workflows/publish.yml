@@ -161,15 +161,13 @@ jobs:
           name: wheels
           path: /tmp/output/*.whl
       
-      - run: |
-          ls /tmp/output
-          
-      - name: Publish package distributions to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          packages-dir: /tmp/output
-          password: ${{ secrets.PYPI_API_TOKEN }}
-          print-hash: true
+      # TODO (tuananh): disable for now: InvalidDistribution: Cannot find file (or expand pattern)
+      # - name: Publish package distributions to PyPI
+      #   uses: pypa/gh-action-pypi-publish@release/v1
+      #   with:
+      #     packages-dir: /tmp/output
+      #     password: ${{ secrets.PYPI_API_TOKEN }}
+      #     print-hash: true
 
   build_windows:
     if: false  # not working
