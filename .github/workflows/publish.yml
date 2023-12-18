@@ -67,15 +67,6 @@ jobs:
           name: wheels
           path: ./wheelhouse/*.whl
 
-      # this action is not supported on macOS
-      # Error: Container action is only supported on Linux
-      
-      # - name: Publish package distributions to PyPI
-      #   uses: pypa/gh-action-pypi-publish@release/v1
-      #   with:
-      #     packages-dir: ./wheelhouse
-      #     password: ${{ secrets.PYPI_API_TOKEN }}
-
   build_linux_x86_64:
     # if: false
     name: Linux 310,311 x86_64
@@ -110,15 +101,8 @@ jobs:
           name: wheels
           path: ./wheelhouse/*.whl
 
-      - name: Publish package distributions to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          packages-dir: ./wheelhouse
-          password: ${{ secrets.PYPI_API_TOKEN }}
-          print-hash: true
-
   build_linux_arm:
-    # if: false
+    if: false
     name: Linux 310,311 armv7l
     runs-on: ubuntu-latest
     environment:
@@ -146,7 +130,7 @@ jobs:
           push: false
           platforms: linux/armhf
           tags: armv7l:latest
-          cache-from: type=gha
+          cache-from: type=ghane
           cache-to: type=gha,mode=min
           load: true
 
@@ -161,14 +145,6 @@ jobs:
           name: wheels
           path: /tmp/output/*.whl
       
-      # TODO (tuananh): disable for now: InvalidDistribution: Cannot find file (or expand pattern)
-      # - name: Publish package distributions to PyPI
-      #   uses: pypa/gh-action-pypi-publish@release/v1
-      #   with:
-      #     packages-dir: /tmp/output
-      #     password: ${{ secrets.PYPI_API_TOKEN }}
-      #     print-hash: true
-
   build_windows:
     if: false  # not working
     name: Windows 310,311 x86_64
@@ -206,3 +182,18 @@ jobs:
         with:
           name: wheels
           path: ./wheelhouse/*.whl
+
+  publish_pypi:
+    # if: false
+    name: Publish PyPI
+    needs: [ build_linux_x86_64, build_linux_arm, build_macos ]
+    runs-on: ubuntu-latest
+    environment:
+        name: pypi
+        url: https://pypi.org/p/event_ruler
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: wheels
+      - name: Display structure of downloaded files
+        run: ls -R
