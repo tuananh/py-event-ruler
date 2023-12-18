@@ -115,6 +115,7 @@ jobs:
         with:
           packages-dir: ./wheelhouse
           password: ${{ secrets.PYPI_API_TOKEN }}
+          print-hash: true
 
   build_linux_arm:
     # if: false
@@ -159,12 +160,16 @@ jobs:
         with:
           name: wheels
           path: /tmp/output/*.whl
-
+      
+      - run: |
+          ls /tmp/output
+          
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          packages-dir: /tmp/output/
+          packages-dir: /tmp/output
           password: ${{ secrets.PYPI_API_TOKEN }}
+          print-hash: true
 
   build_windows:
     if: false  # not working
