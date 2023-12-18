@@ -5,7 +5,7 @@ on: [ push, pull_request ]
 jobs:
   build_macos:
     if: false # disable
-    name: MacOS ${{ matrix.os_version }} 3.${{ matrix.python3_version }} ${{ matrix.arch_cibw_go[0] }}
+    name: MacOS ${{ matrix.os_version }} 3${{ matrix.python3_version }} ${{ matrix.arch_cibw_go[0] }}
     strategy:
       fail-fast: false
       matrix:
@@ -95,7 +95,7 @@ jobs:
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          packages-dir: ./wheelhouse/*.whl
+          packages-dir: ./wheelhouse
           password: ${{ secrets.PYPI_API_TOKEN }}
 
   build_linux_arm:
