@@ -186,12 +186,16 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
 
-      - name: Display structure of downloaded files
-        run: ls -R
+      - name: Collect all wheels
+        run: |
+          ls -R
+          mkdir dist
+          for f in $(find . -type f -name '*.whl'); do mv ${f} dist; done;
+          ls -R dist
 
-      # - name: Publish package distributions to PyPI
-      #   uses: pypa/gh-action-pypi-publish@release/v1
-      #   with:
-      #     packages-dir: ./wheels
-      #     password: ${{ secrets.PYPI_API_TOKEN }}
-      #     print-hash: true
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: ./dist
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          print-hash: true
