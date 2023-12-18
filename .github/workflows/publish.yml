@@ -67,11 +67,14 @@ jobs:
           name: wheels
           path: ./wheelhouse/*.whl
 
-      - name: Publish package distributions to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          packages-dir: ./wheelhouse
-          password: ${{ secrets.PYPI_API_TOKEN }}
+      # this action is not supported on macOS
+      # Error: Container action is only supported on Linux
+      
+      # - name: Publish package distributions to PyPI
+      #   uses: pypa/gh-action-pypi-publish@release/v1
+      #   with:
+      #     packages-dir: ./wheelhouse
+      #     password: ${{ secrets.PYPI_API_TOKEN }}
 
   build_linux_x86_64:
     # if: false
