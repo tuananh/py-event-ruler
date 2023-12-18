@@ -21,9 +21,6 @@ jobs:
           - [ "x86_64", "amd64" ]
           - [ "arm64", "arm64" ]
     runs-on: macos-${{ matrix.os_version }}
-    environment:
-      name: pypi
-      url: https://pypi.org/p/event_ruler
     steps:
       - uses: actions/checkout@v3
 
@@ -64,16 +61,13 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: wheels-macos
+          name: wheels-macos${{ matrix.os_version }}-py3${{ matrix.python3_version }}-${{ matrix.arch_cibw_go[0] }}
           path: ./wheelhouse/*.whl
 
   build_linux_x86_64:
     # if: false
     name: Linux 310,311 x86_64
     runs-on: ubuntu-20.04
-    environment:
-      name: pypi
-      url: https://pypi.org/p/event_ruler
 
     steps:
       - uses: actions/checkout@v3
@@ -105,9 +99,6 @@ jobs:
     if: false
     name: Linux 310,311 armv7l
     runs-on: ubuntu-latest
-    environment:
-      name: pypi
-      url: https://pypi.org/p/event_ruler
 
     steps:
       - name: Checkout repository
