@@ -62,9 +62,9 @@ class CustomBuildExt(build_ext):
 setuptools.setup(
     name=normalize(PACKAGE_NAME),
     version="0.1.0",
-    author="change_me",
-    author_email="change_me@example.com",
-    description="",
+    author="Tuan Anh Tran",
+    author_email="me@tuananh.org",
+    description="Test EventBridge pattern with Python locally",
     url="https://github.com/go-python/gopy",
     classifiers=[
         "Programming Language :: Python :: 3",

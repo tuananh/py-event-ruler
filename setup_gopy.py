@@ -13,7 +13,7 @@ setuptools.setup(
     version="0.1.0",
     author="Tuan Anh Tran",
     author_email="me@tuananh.org",
-    description="",
+    description="Test EventBridge pattern with Python locally",
     url="https://github.com/go-python/gopy",
     classifiers=[
         "Programming Language :: Python :: 3",
