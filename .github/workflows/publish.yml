@@ -187,14 +187,14 @@ jobs:
     # if: false
     name: Publish PyPI
     # needs: [ build_linux_x86_64, build_linux_arm, build_macos ]
-    needs: [ build_linux_x86_64, build_macos ]
+    needs: [ build_linux_x86_64 ]
     runs-on: ubuntu-latest
     environment:
         name: pypi
         url: https://pypi.org/p/event_ruler
     steps:
       - uses: actions/download-artifact@v4
-        with:
-          name: wheels
+        # with:
+        #   name: wheels
       - name: Display structure of downloaded files
         run: ls -R
