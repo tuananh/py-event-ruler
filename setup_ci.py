@@ -58,6 +58,11 @@ class CustomBuildExt(build_ext):
         with open(f"{destination}/__init__.py", "w") as f:
             f.write(f"from .{PACKAGE_NAME} import *")
 
+with open('README.md') as f:
+    readme = f.read()
+
+with open('LICENSE') as f:
+    license = f.read()
 
 setuptools.setup(
     name=normalize(PACKAGE_NAME),
@@ -65,10 +70,13 @@ setuptools.setup(
     author="Tuan Anh Tran",
     author_email="me@tuananh.org",
     description="Test EventBridge pattern with Python locally",
+    long_description=readme,
+    long_description_content_type="text/markdown",
+    license=license,
     url="https://github.com/tuananh/py-event-ruler",
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: BSD License",
+        "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
     include_package_data=True,
