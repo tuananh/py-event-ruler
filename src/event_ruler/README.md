@@ -9,7 +9,7 @@ The AWS SDK has an [API for testing event pattern](https://docs.aws.amazon.com/e
 
 In my case, I want to do lots of pattern matching test without being afraid of hitting API rate limit from AWS.
 
-AWS also releases an [open-source version of this pattern matching library in Java](https://github.com/aws/event-ruler) but in my case, I want to use Python because that's what my team are familiar with.
+AWS also releases an [open-source version of this pattern matching library in Java](https://github.com/aws/event-ruler) but in my case, I want to use Python because that's what my teammates are familiar with.
 
 ## Usage
 
