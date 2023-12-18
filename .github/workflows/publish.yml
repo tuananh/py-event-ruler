@@ -62,7 +62,7 @@ jobs:
             GOARCH=${{ matrix.arch_cibw_go[1] }}
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: wheels
           path: ./wheelhouse/*.whl
@@ -96,7 +96,7 @@ jobs:
             go install golang.org/x/tools/cmd/goimports@latest
 
       - name: Upload atifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: wheels
           path: ./wheelhouse/*.whl
@@ -140,7 +140,7 @@ jobs:
           tar -zcvf /tmp/output.tar.gz /tmp/output
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: wheels
           path: /tmp/output/*.whl
@@ -178,7 +178,7 @@ jobs:
             GOARCH=amd64
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: wheels
           path: ./wheelhouse/*.whl
