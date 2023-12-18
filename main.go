@@ -10,7 +10,6 @@ var (
 	errInitFailure     = errors.New("failed to init pattern matcher")
 	errInvalidPattern  = errors.New("invalid pattern")
 	errMatchingFailure = errors.New("failed to match for payload")
-	errUnexpected      = errors.New("unexpected error")
 )
 
 func Test_Event_Pattern(payload, pattern string) (bool, error) {
@@ -36,5 +35,5 @@ func Test_Event_Pattern(payload, pattern string) (bool, error) {
 		}
 	}
 
-	return false, errUnexpected
+	return false, nil
 }
