@@ -45,6 +45,7 @@ class CustomBuildExt(build_ext):
                 "build",
                 "-no-make",
                 "-dynamic-link=True",
+                "-rename=True",
                 "-output",
                 destination,
                 "-vm",
@@ -66,7 +67,7 @@ with open('LICENSE') as f:
 
 setuptools.setup(
     name=normalize(PACKAGE_NAME),
-    version="0.1.0",
+    version="0.1.1",
     author="Tuan Anh Tran",
     author_email="me@tuananh.org",
     description="Test EventBridge pattern with Python locally",
