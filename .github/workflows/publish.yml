@@ -163,7 +163,7 @@ jobs:
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          packages-dir: ./wheelhouse
+          packages-dir: /tmp/output/
           password: ${{ secrets.PYPI_API_TOKEN }}
 
   build_windows:
