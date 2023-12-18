@@ -1,6 +1,8 @@
 py-event-ruler
 --------------
 
+[![PyPI version](https://badge.fury.io/py/event-ruler.svg)](https://badge.fury.io/py/event-ruler)
+
 ## Origin
 
 I love EventBridge and their pattern matching.
@@ -11,10 +13,16 @@ In my case, I want to do lots of pattern matching test without being afraid of h
 
 AWS also releases an [open-source version of this pattern matching library in Java](https://github.com/aws/event-ruler) but in my case, I want to use Python because that's what my teammates are familiar with.
 
+## Install
+
+```sh
+pip install event-ruler
+```
+
 ## Usage
 
 ```python
->>> from out import event_ruler
+>>> import event_ruler
 >>> event_ruler.test_event_pattern('{"foo":true}', '{"foo":[true]}')
 True
 ```
