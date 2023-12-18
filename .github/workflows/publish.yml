@@ -186,7 +186,8 @@ jobs:
   publish_pypi:
     # if: false
     name: Publish PyPI
-    needs: [ build_linux_x86_64, build_linux_arm, build_macos ]
+    # needs: [ build_linux_x86_64, build_linux_arm, build_macos ]
+    needs: [ build_linux_x86_64, build_macos ]
     runs-on: ubuntu-latest
     environment:
         name: pypi
