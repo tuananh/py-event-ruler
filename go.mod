@@ -1,4 +1,4 @@
-module github.com/tuananh/py-event-ruler
+module event_ruler
 
 go 1.20
 

@@ -11,7 +11,3 @@ setup-tools:
 build: clean
 	mkdir -p src/event_ruler
 	gopy build -output=src/event_ruler -vm=python3 -rename=true -no-make=true ./
-	cp pyproject.toml src/event_ruler
-	cp README.md src/event_ruler
-	cd src/event_ruler
-	python -m build
