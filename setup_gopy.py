@@ -2,18 +2,20 @@ import os
 import setuptools
 import re
 
+
 def normalize(name):  # https://peps.python.org/pep-0503/#normalized-names
     return re.sub(r"[-_.]+", "-", name).lower()
 
-PACKAGE_PATH=os.getenv("_PACKAGE_PATH", "event_ruler")
-PACKAGE_NAME=PACKAGE_PATH.split("/")[-1]
 
-with open('README.md') as f:
+PACKAGE_PATH = os.getenv("_PACKAGE_PATH", "event_ruler")
+PACKAGE_NAME = PACKAGE_PATH.split("/")[-1]
+
+with open("README.md") as f:
     readme = f.read()
 
-with open('LICENSE') as f:
+with open("LICENSE") as f:
     license = f.read()
-    
+
 setuptools.setup(
     name=normalize(PACKAGE_NAME),
     version="0.3.0",
@@ -31,5 +33,5 @@ setuptools.setup(
     ],
     include_package_data=True,
     package_dir={".": f"./_tmp/{PACKAGE_PATH}/../"},
-    package_data={"": ["*.so"]}
+    package_data={"": ["*.so"]},
 )

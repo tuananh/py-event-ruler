@@ -8,18 +8,20 @@ from distutils.core import Extension
 import setuptools
 from setuptools.command.build_ext import build_ext
 
+
 def normalize(name):  # https://peps.python.org/pep-0503/#normalized-names
     return re.sub(r"[-_.]+", "-", name).lower()
 
-PACKAGE_PATH=REPLACE_ME
-PACKAGE_NAME=PACKAGE_PATH.split("/")[-1]
+
+PACKAGE_PATH = "event_ruler"
+PACKAGE_NAME = PACKAGE_PATH.split("/")[-1]
 
 # https://pip.pypa.io/en/latest/user_guide/#using-pip-from-your-program
-subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pybindgen'])
+subprocess.check_call([sys.executable, "-m", "pip", "install", "pybindgen"])
 
-if sys.platform == 'darwin':
+if sys.platform == "darwin":
     PYTHON_BINARY = os.getenv("PYTHON_BINARY_PATH")
-if sys.platform == 'linux':
+if sys.platform == "linux":
     PYTHON_BINARY = sys.executable
 
 
@@ -32,9 +34,14 @@ def _generate_path_with_gopath():
 class CustomBuildExt(build_ext):
     def build_extension(self, ext: Extension):
         bin_path = _generate_path_with_gopath()
-        go_env = json.loads(subprocess.check_output(["go", "env", "-json"]).decode("utf-8").strip())
+        go_env = json.loads(
+            subprocess.check_output(["go", "env", "-json"]).decode("utf-8").strip()
+        )
 
-        destination = os.path.dirname(os.path.abspath(self.get_ext_fullpath(ext.name))) + f"/{PACKAGE_NAME}"
+        destination = (
+            os.path.dirname(os.path.abspath(self.get_ext_fullpath(ext.name)))
+            + f"/{PACKAGE_NAME}"
+        )
         subprocess.check_call(
             ["go", "install", "golang.org/x/tools/cmd/goimports@latest"],
             env={"PATH": bin_path, **go_env},
@@ -57,19 +64,20 @@ class CustomBuildExt(build_ext):
                 PYTHON_BINARY,
                 *ext.sources,
             ],
-            env={"PATH": bin_path, **go_env, "CGO_LDFLAGS_ALLOW": '.*'},
+            env={"PATH": bin_path, **go_env, "CGO_LDFLAGS_ALLOW": ".*"},
         )
 
         # dirty hack to avoid "from pkg import pkg", remove if needed
         with open(f"{destination}/__init__.py", "w") as f:
             f.write(f"from .{PACKAGE_NAME} import *")
 
-with open('README.md') as f:
+
+with open("README.md") as f:
     readme = f.read()
 
-with open('LICENSE') as f:
+with open("LICENSE") as f:
     license = f.read()
-    
+
 setuptools.setup(
     name=normalize(PACKAGE_NAME),
     version="0.3.0",
@@ -90,6 +98,9 @@ setuptools.setup(
         "build_ext": CustomBuildExt,
     },
     ext_modules=[
-        Extension(PACKAGE_NAME, [PACKAGE_PATH],)
+        Extension(
+            PACKAGE_NAME,
+            [PACKAGE_PATH],
+        )
     ],
 )
